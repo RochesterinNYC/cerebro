@@ -5,7 +5,6 @@ module Cerebro
   class Command
     class Search < Command
       self.summary = 'Search through github repo forks'
-
       self.description = <<-DESC
 	Search through forks of the specified repo for a search term
       DESC
@@ -15,10 +14,18 @@ module Cerebro
 	@owner = argv.shift_argument
 	@repo = argv.shift_argument
 	@search_term = argv.shift_argument
+	@deep_clone = argv.flag?('deep')
 	@github_token = ENV.fetch('GITHUB_TOKEN', nil)
 	@home_dir = ENV.fetch('HOME', nil)
 	super
       end
+
+      def self.options
+        [
+          ['--deep', 'Use full git cloning instead of shallow clones'],
+        ].concat(super).reject { |(name, _)| name == '--no-deep' }
+      end
+
       def validate!
 	super
 
@@ -43,6 +50,7 @@ module Cerebro
 	  exit 1
 	end
       end
+
       def run
 	# Setup Github API
 	Octokit.auto_paginate = true
@@ -69,7 +77,8 @@ module Cerebro
 		`git pull -r`
 	      end
 	    else
-	      `git clone #{git_fork.ssh_url} #{forked_dir}`
+	      shallow = @deep_clone ? "" : "--depth 1"
+	      `git clone #{shallow} #{git_fork.ssh_url} #{forked_dir}`
 	    end
 	    Dir.chdir(forked_dir) do
 	      `ag #{@search_term}`
