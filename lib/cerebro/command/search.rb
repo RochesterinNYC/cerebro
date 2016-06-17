@@ -87,7 +87,7 @@ module Cerebro
 	puts
 	puts "Found \"#{@search_term}\" in #{forks_with_term.count} forks out of total #{forks.count} forks of #{full_repo_name}"
 	puts
-	puts "Clones of forked repos are located in #{Dir.pwd}/#{forks_directory}"
+	puts "Clones of forked repos are located in #{forks_directory}"
       end
     end
   end
