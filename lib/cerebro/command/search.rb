@@ -1,5 +1,6 @@
 require 'octokit'
 require 'fileutils'
+require 'cerebro/searcher'
 
 module Cerebro
   class Command
@@ -69,7 +70,7 @@ module Cerebro
 	Dir.chdir(forks_directory) do
 	  puts "Found #{forks.count} forks of #{full_repo_name}"
 	  puts "All forks will be stored in #{forks_directory}"
-	  puts "Searching through these forks now..."
+	  puts "Cloning or updating all local fork repos..."
 	  forks.each do |git_fork|
 	    forked_dir = File.join(forks_directory, "#{git_fork.owner.login}-#{git_fork.name}")
 	    if Dir.exists?(forked_dir)
@@ -80,17 +81,13 @@ module Cerebro
 	      shallow = @deep_clone ? "" : "--depth 1"
 	      `git clone #{shallow} #{git_fork.ssh_url} #{forked_dir}`
 	    end
-	    Dir.chdir(forked_dir) do
-	      `ag #{@search_term}`
-	      if $?.success?
-		forks_with_term << git_fork.full_name
-	      end
-	    end
 	  end
+	  puts "Searching through these forks now..."
+	  forks_with_term = Searcher.find(forks_directory, @search_term)
 	end
 	puts <<-RESULTS
 
-  ----------------Search Results---------------------
+----------------Search Results---------------------
 	RESULTS
 	forks_with_term.each do |repo_identifier|
 	  puts "Found #{@search_term} in #{repo_identifier}"
