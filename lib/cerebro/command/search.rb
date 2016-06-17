@@ -17,7 +17,6 @@ module Cerebro
 	@search_term = argv.shift_argument
 	@deep_clone = argv.flag?('deep')
 	@github_token = ENV.fetch('GITHUB_TOKEN', nil)
-	@home_dir = ENV.fetch('HOME', nil)
 	super
       end
 
@@ -43,13 +42,6 @@ module Cerebro
 	  HELP
 	  exit 1
 	end
-	if !@home_dir
-	  puts <<-HELP
-  You don't have $HOME set.
-  Cerebro currently relies on storing cloned fork repos in your home directory.
-	  HELP
-	  exit 1
-	end
       end
 
       def run
@@ -64,7 +56,7 @@ module Cerebro
 
 	# Get all forks
 	forks = Octokit.forks(full_repo_name)
-	forks_directory = File.join(@home_dir, ".cerebro", "#{@repo}-forks")
+	forks_directory = File.join(Cerebro.storage_directory, "#{@repo}-forks")
 	FileUtils.mkdir_p forks_directory
 
 	Dir.chdir(forks_directory) do
