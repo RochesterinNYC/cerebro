@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["jrw2175@columbia.edu"]
 
   spec.summary       = "A tool for searching through forks of github repos for information."
-  spec.description   = "Description"
-  spec.homepage      = ""
+  spec.description   = "A tool for searching through forks of github repos for information. (https://github.com/RochesterinNYC/cerebro)"
+  spec.homepage      = "https://github.com/RochesterinNYC/cerebro"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
