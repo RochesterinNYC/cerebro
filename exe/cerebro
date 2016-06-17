@@ -2,4 +2,4 @@
 
 require 'cerebro'
 
-Cerebro.fork_search
+Cerebro::CLI.start(ARGV)
