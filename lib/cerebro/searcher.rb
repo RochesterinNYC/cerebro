@@ -23,10 +23,8 @@ module Cerebro
     end
 
     def search_in_fork(fork_dir)
-      Dir.chdir(fork_dir) do
-        `ag #{@search_term}`
-        $?.success?
-      end
+      `grep -IR '#{@search_term}' #{fork_dir}`
+      $?.success?
     end
   end
 end
