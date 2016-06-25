@@ -1,5 +1,5 @@
 # Cerebro
-
+![Cerebro](http://i.imgur.com/r42alBv.jpg "Cerebro")
 Search through github forks of a repo for search terms!
 Great for maintainers that want to know what downstream forks are doing.
 
