@@ -22,7 +22,7 @@ determine if your search term is present in each/which of the forks.
 
 - Cloning down of the repos will be shallow by default. If you want deep clones, use `cerebro search --deep`.
 
-####Searching:
+#### Searching:
 
 - To clean up all repos that Cerebro has cloned onto your local file system:
 
@@ -50,7 +50,7 @@ Found "graphviz" in 2 forks out of total 85 forks of cloudfoundry/python-buildpa
 Clones of forked repos are located in /Users/user/.cerebro/python-buildpack-forks
 ```
 
-####Cleaning Up:
+#### Cleaning Up:
 
 - To clean up all repos that Cerebro has cloned onto your local file system:
 
@@ -74,6 +74,17 @@ $ cerebro clean <repo-name>
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/RochesterinNYC/cerebro or in https://cloudfoundry.slack.com/messages/buildpacks/.
+
+## Development
+
+To install the source of this repo as a local gem, use:
+
+```
+gem build cerebro.gemspec
+gem install --local ./cerebro-*
+```
+
+However, bear in mind that while in this repo, running `cerebro` will run `exe/cerebro` and the source code by default.
 
 ## Later Work
 
