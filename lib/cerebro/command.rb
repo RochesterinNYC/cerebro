@@ -5,12 +5,17 @@ module Cerebro
     require 'cerebro/command/search'
     require 'cerebro/command/clean'
 
+    self.abstract_command = true
+    self.command = 'cerebro'
+    self.version = VERSION
+    self.description = 'Cerebro, a tool for searching through forks'
+
     def self.run(argv)
       super(argv)
     end
 
     def validate!
-	    super
+      super
 
       if !Cerebro.storage_directory
         puts <<-HELP
