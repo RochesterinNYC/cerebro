@@ -69,7 +69,8 @@ $ cerebro clean <repo-name>
 - This gem relies on `git` for cloning down forks of repos.
 - This gem currently relies on $HOME being set on your machine for figuring out where to store cloned repos.
 - This gem's searching for forks relies on the user providing a valid Github API token via
-  `GITHUB_TOKEN` env vars. This token is not persisted or stored at all.
+  `GITHUB_TOKEN` env vars. This token is not persisted or stored at all. This API token does not need any scopes
+  specified, it is only required to prevent hitting the unauthenticated Github API request limit.
 
 ## Contributing
 
